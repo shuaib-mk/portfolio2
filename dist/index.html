@@ -97,8 +97,8 @@
     .ticker-track span { display: inline-flex; align-items: center; gap: 2rem; padding-right: 2rem; font-family: var(--display); font-size: clamp(1.25rem, 2.1vw, 2rem); font-weight: 700; letter-spacing: -.025em; text-transform: uppercase; white-space: nowrap; }
     .ticker-track span::after { content: "✦"; font-size: .65em; }
 
-    .manifesto { min-height: 185svh; padding: 15vh var(--pad); }
-    .manifesto-inner { position: sticky; top: 18vh; }
+    .manifesto { padding: clamp(7rem, 14vh, 11rem) var(--pad); overflow: hidden; scroll-margin-top: 5rem; }
+    .manifesto-inner { position: relative; }
     .manifesto p { margin: 0; max-width: 13ch; font-family: var(--display); font-size: clamp(3.2rem, 8.8vw, 9rem); line-height: .9; letter-spacing: -.065em; text-transform: uppercase; }
     .word { display: inline-block; margin-inline-end: .16em; color: rgba(244,242,237,.14); transition: color .35s; }
     .word:last-child { margin-inline-end: 0; }
@@ -243,8 +243,7 @@
       .hero-title { font-size: clamp(4rem, 23vw, 7rem); }
       .hero-bottom, .section-head, .about-grid, .skills-stage, .archive-head, .offscreen { grid-template-columns: 1fr; }
       .scroll-cue { display: none; }
-      .manifesto { min-height: 145svh; }
-      .manifesto-inner { top: 20vh; }
+      .manifesto { padding-top: 7rem; padding-bottom: 7rem; }
       .project { grid-template-columns: 2.2rem 1fr auto; gap: .8rem; }
       .project-demo, .project-copy { grid-column: 2 / -1; }
       .project-demo { min-height: 20rem; margin: 1rem 0; }
@@ -503,7 +502,7 @@
     const words = [...manifesto.querySelectorAll('.word')];
     const lightWords = () => {
       const rect = manifesto.getBoundingClientRect();
-      const span = innerHeight * 1.1;
+      const span = innerHeight * .9;
       const progress = Math.max(0, Math.min(1, (innerHeight * .78 - rect.top) / span));
       words.forEach((word, index) => word.classList.toggle('is-lit', index < Math.ceil(progress * words.length)));
     };
