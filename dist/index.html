@@ -64,6 +64,8 @@
     .nav-links a { position: relative; color: rgba(244,242,237,.75); }
     .nav-links a::after { content: ""; position: absolute; left: 0; bottom: -.35rem; width: 100%; height: 1px; transform: scaleX(0); transform-origin: right; background: var(--acid); transition: transform .25s; }
     .nav-links a:hover::after, .nav-links a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+    .nav-links a.active { color: var(--paper); }
+    .nav-links a.active::after { transform: scaleX(1); }
     .nav-cta { padding: .65rem 1rem; border: 1px solid var(--line); border-radius: 100px; }
 
     .hero {
@@ -75,7 +77,8 @@
       border-bottom: 1px solid var(--line);
       overflow: hidden;
     }
-    .hero::before { content: ""; position: absolute; width: 42rem; height: 42rem; right: -12rem; top: -18rem; border: 1px solid rgba(217,255,67,.35); border-radius: 50%; box-shadow: 0 0 0 5rem rgba(217,255,67,.025), 0 0 0 10rem rgba(217,255,67,.018); animation: breathe 8s ease-in-out infinite; }
+    .hero::before { content: ""; position: absolute; width: 42rem; height: 42rem; right: -12rem; top: -18rem; border: 1px solid rgba(217,255,67,.35); border-radius: 50%; box-shadow: 0 0 0 5rem rgba(217,255,67,.025), 0 0 0 10rem rgba(217,255,67,.018); transform: translate(var(--hero-x, 0), var(--hero-y, 0)); animation: breathe 8s ease-in-out infinite; transition: transform .25s ease-out; }
+    .hero::after { content: "01"; position: absolute; right: var(--pad); bottom: -5vw; font-family: var(--display); font-size: clamp(14rem, 34vw, 34rem); font-weight: 800; line-height: .7; letter-spacing: -.1em; color: rgba(244,242,237,.025); pointer-events: none; }
     .hero-top { align-self: start; display: flex; justify-content: space-between; align-items: center; margin-bottom: auto; }
     .availability { display: flex; align-items: center; gap: .65rem; color: rgba(244,242,237,.7); }
     .availability::before { content: ""; width: .55rem; height: .55rem; border-radius: 50%; background: var(--acid); box-shadow: 0 0 0 .3rem rgba(217,255,67,.12); }
@@ -89,7 +92,13 @@
     .scroll-cue i { width: 2.6rem; height: 1px; background: var(--muted); }
     .hero-copy { margin: 0; font-size: clamp(1rem, 1.55vw, 1.3rem); color: rgba(244,242,237,.76); }
 
-    .manifesto { min-height: 130svh; padding: 15vh var(--pad); display: grid; align-content: center; }
+    .ticker { overflow: hidden; border-bottom: 1px solid var(--line); background: var(--acid); color: var(--ink); }
+    .ticker-track { display: flex; width: max-content; padding: .85rem 0; animation: ticker 24s linear infinite; }
+    .ticker-track span { display: inline-flex; align-items: center; gap: 2rem; padding-right: 2rem; font-family: var(--display); font-size: clamp(1.25rem, 2.1vw, 2rem); font-weight: 700; letter-spacing: -.025em; text-transform: uppercase; white-space: nowrap; }
+    .ticker-track span::after { content: "✦"; font-size: .65em; }
+
+    .manifesto { min-height: 185svh; padding: 15vh var(--pad); }
+    .manifesto-inner { position: sticky; top: 18vh; }
     .manifesto p { margin: 0; max-width: 13ch; font-family: var(--display); font-size: clamp(3.2rem, 8.8vw, 9rem); line-height: .9; letter-spacing: -.065em; text-transform: uppercase; }
     .word { color: rgba(244,242,237,.14); transition: color .35s; }
     .word.is-lit { color: var(--paper); }
@@ -114,9 +123,9 @@
     .project {
       position: relative;
       display: grid;
-      grid-template-columns: 4rem 1.1fr 1fr auto;
+      grid-template-columns: 3rem .9fr 1.15fr 1fr auto;
       gap: clamp(1rem, 4vw, 4rem);
-      align-items: start;
+      align-items: center;
       padding: clamp(2.4rem, 5vw, 5.5rem) 0;
       border-bottom: 1px solid rgba(11,11,11,.25);
       isolation: isolate;
@@ -133,6 +142,36 @@
     .project-link { width: 3.5rem; height: 3.5rem; display: grid; place-items: center; border: 1px solid rgba(11,11,11,.35); border-radius: 50%; transition: transform .25s, background .25s, color .25s; }
     .project:hover .project-link { transform: rotate(45deg); background: var(--ink); color: var(--acid); }
 
+    .project-demo { --rx: 0deg; --ry: 0deg; min-height: 23rem; display: grid; place-items: center; border: 1px solid rgba(11,11,11,.2); background: #dad8d1; overflow: hidden; transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)); transition: transform .18s ease-out, background .35s; }
+    .project:hover .project-demo { background: #d0f536; }
+    .phone { width: 10.4rem; height: 20rem; padding: .65rem; border: 2px solid var(--ink); border-radius: 1.7rem; background: var(--ink); box-shadow: 1.5rem 1.5rem 0 rgba(11,11,11,.11); transform: rotate(-7deg); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+    .project:hover .phone { transform: rotate(-2deg) scale(1.04); }
+    .phone-screen { height: 100%; padding: .9rem .75rem; border-radius: 1.1rem; background: var(--paper); color: var(--ink); }
+    .phone-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; font-size: .55rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .phone-top i { width: .45rem; height: .45rem; border-radius: 50%; background: var(--acid); box-shadow: 0 0 0 .2rem rgba(217,255,67,.28); }
+    .puzzle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .35rem; }
+    .puzzle-tile { aspect-ratio: 1; display: grid; place-items: center; border: 1px solid var(--ink); font-family: var(--display); font-size: 1.1rem; font-weight: 750; transition: transform .35s, background .35s, color .35s; }
+    .puzzle-tile:nth-child(2), .puzzle-tile:nth-child(6) { background: var(--acid); }
+    .project:hover .puzzle-tile:nth-child(2) { transform: translateY(.5rem); }
+    .project:hover .puzzle-tile:nth-child(6) { transform: translateX(-.5rem); background: var(--ink); color: var(--acid); }
+    .puzzle-score { margin-top: 1.2rem; display: flex; justify-content: space-between; align-items: end; }
+    .puzzle-score strong { font-family: var(--display); font-size: 2.2rem; line-height: 1; letter-spacing: -.07em; }
+    .puzzle-score span { font-size: .48rem; text-transform: uppercase; letter-spacing: .1em; }
+
+    .browser { width: min(19rem, 88%); border: 2px solid var(--ink); background: var(--paper); box-shadow: -1.5rem 1.5rem 0 rgba(11,11,11,.11); transform: rotate(5deg); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+    .project:hover .browser { transform: rotate(1deg) scale(1.04); }
+    .browser-bar { height: 2rem; display: flex; align-items: center; gap: .35rem; padding: 0 .65rem; border-bottom: 1px solid var(--ink); }
+    .browser-bar i { width: .42rem; height: .42rem; border: 1px solid var(--ink); border-radius: 50%; }
+    .browser-address { flex: 1; height: .75rem; margin-left: .35rem; border: 1px solid var(--ink); border-radius: 1rem; }
+    .browser-body { padding: 1rem; }
+    .extension-head { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.4rem; }
+    .extension-head strong { max-width: 8ch; font-family: var(--display); font-size: 1.7rem; line-height: .85; letter-spacing: -.06em; text-transform: uppercase; }
+    .extension-toggle { width: 2.2rem; height: 1.2rem; padding: .18rem; border-radius: 2rem; background: var(--ink); }
+    .extension-toggle::after { content: ""; display: block; width: .84rem; height: .84rem; margin-left: .98rem; border-radius: 50%; background: var(--acid); }
+    .extension-row { display: grid; grid-template-columns: 2rem 1fr auto; align-items: center; gap: .55rem; padding: .6rem 0; border-top: 1px solid rgba(11,11,11,.24); font-size: .58rem; font-weight: 600; text-transform: uppercase; }
+    .extension-icon { aspect-ratio: 1; display: grid; place-items: center; background: var(--acid); font-family: var(--display); font-size: .85rem; }
+    .extension-row em { font-style: normal; color: rgba(11,11,11,.5); }
+
     .skills-stage { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; }
     .skill-list { margin: 0; padding: 0; list-style: none; }
     .skill-list li { display: flex; align-items: baseline; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); font-family: var(--display); font-size: clamp(2rem, 5.4vw, 5.6rem); line-height: 1; letter-spacing: -.045em; transition: color .2s, padding-left .3s; }
@@ -148,11 +187,20 @@
     .contact-link:hover, .contact-link:focus-visible { background: var(--ink); color: var(--acid); transform: translateY(-3px); }
     .footer { position: relative; z-index: 2; display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-top: 7rem; padding-top: 1.4rem; border-top: 1px solid rgba(11,11,11,.3); font-size: .78rem; text-transform: uppercase; letter-spacing: .09em; }
 
-    .cursor { position: fixed; z-index: 100; left: 0; top: 0; width: 1.2rem; height: 1.2rem; border: 1px solid var(--acid); border-radius: 50%; pointer-events: none; mix-blend-mode: difference; transform: translate(-50%,-50%); transition: width .2s, height .2s, background .2s; }
+    .cursor { position: fixed; z-index: 100; left: 0; top: 0; width: 1.2rem; height: 1.2rem; display: grid; place-items: center; border: 1px solid var(--acid); border-radius: 50%; pointer-events: none; mix-blend-mode: difference; transform: translate(-50%,-50%); transition: width .2s, height .2s, background .2s; }
+    .cursor span { opacity: 0; color: var(--ink); font-size: .55rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transition: opacity .15s; }
     .cursor.hover { width: 3rem; height: 3rem; background: var(--paper); }
+    .cursor.hover span { opacity: 1; }
 
     @keyframes rise { to { transform: none; } }
     @keyframes breathe { 50% { transform: scale(1.08); opacity: .75; } }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+
+    @media (max-width: 1100px) and (min-width: 761px) {
+      .project { grid-template-columns: 3rem .8fr 1fr auto; }
+      .project-demo { grid-column: 3; grid-row: 1 / span 2; }
+      .project-copy { grid-column: 2; }
+    }
 
     @media (max-width: 760px) {
       :root { --pad: 1.2rem; }
@@ -163,9 +211,11 @@
       .hero-title { font-size: clamp(4rem, 23vw, 7rem); }
       .hero-bottom, .section-head, .about-grid, .skills-stage { grid-template-columns: 1fr; }
       .scroll-cue { display: none; }
-      .manifesto { min-height: 100svh; }
+      .manifesto { min-height: 145svh; }
+      .manifesto-inner { top: 20vh; }
       .project { grid-template-columns: 2.2rem 1fr auto; gap: .8rem; }
-      .project-copy { grid-column: 2 / -1; }
+      .project-demo, .project-copy { grid-column: 2 / -1; }
+      .project-demo { min-height: 20rem; margin: 1rem 0; }
       .project-link { width: 2.8rem; height: 2.8rem; }
       .footer { align-items: start; flex-direction: column; }
       .cursor { display: none; }
@@ -181,7 +231,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="progress" aria-hidden="true"></div>
   <div class="noise" aria-hidden="true"></div>
-  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span>View</span></div>
 
   <header class="nav" aria-label="Primary navigation">
     <a class="brand" href="#top" aria-label="Q04TI, back to top">Q04TI<span>•</span></a>
@@ -210,8 +260,15 @@
       </div>
     </section>
 
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Flutter</span><span>Dart</span><span>Android</span><span>Game logic</span><span>Browser tools</span><span>Kotlin</span>
+        <span>Flutter</span><span>Dart</span><span>Android</span><span>Game logic</span><span>Browser tools</span><span>Kotlin</span>
+      </div>
+    </div>
+
     <section class="manifesto" aria-label="Design statement">
-      <p id="manifesto-text">I build <span class="accent">small</span> software with <span class="accent">big</span> personality. Every tap should earn its place.</p>
+      <div class="manifesto-inner"><p id="manifesto-text">I build <span class="accent">small</span> software with <span class="accent">big</span> personality. Every tap should earn its place.</p></div>
     </section>
 
     <section class="section" id="about">
@@ -237,24 +294,48 @@
         <article class="project reveal">
           <span class="project-index">01</span>
           <h3>Puzzlebox</h3>
+          <div class="project-demo" aria-hidden="true">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="phone-top"><span>Puzzlebox / Shift</span><i></i></div>
+                <div class="puzzle-grid">
+                  <span class="puzzle-tile">1</span><span class="puzzle-tile">2</span><span class="puzzle-tile">3</span>
+                  <span class="puzzle-tile">4</span><span class="puzzle-tile">5</span><span class="puzzle-tile">6</span>
+                  <span class="puzzle-tile">7</span><span class="puzzle-tile">8</span><span class="puzzle-tile">•</span>
+                </div>
+                <div class="puzzle-score"><span>Moves<br>to solve</span><strong>12</strong></div>
+              </div>
+            </div>
+          </div>
           <div class="project-copy">
             <p class="problem">One app. Multiple ways to get pleasantly stuck.</p>
             <p>A Flutter multi-game puzzle app designed to make switching between challenges feel instant. Shared systems keep the experience consistent while each game keeps its own rhythm.</p>
             <p><strong>Status:</strong> in active development.</p>
             <div class="tags"><span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Game logic</span><span class="tag">Mobile UX</span></div>
           </div>
-          <a class="project-link" href="https://github.com/q04ti" target="_blank" rel="noreferrer" aria-label="Explore Puzzlebox work on GitHub">↗</a>
+          <a class="project-link" data-cursor="Open" href="https://github.com/q04ti" target="_blank" rel="noreferrer" aria-label="Explore Puzzlebox work on GitHub">↗</a>
         </article>
         <article class="project reveal">
           <span class="project-index">02</span>
           <h3>Chrome tools</h3>
+          <div class="project-demo" aria-hidden="true">
+            <div class="browser">
+              <div class="browser-bar"><i></i><i></i><i></i><span class="browser-address"></span></div>
+              <div class="browser-body">
+                <div class="extension-head"><strong>Less friction. More flow.</strong><span class="extension-toggle"></span></div>
+                <div class="extension-row"><span class="extension-icon">Q</span><span>Quick actions</span><em>On</em></div>
+                <div class="extension-row"><span class="extension-icon">↗</span><span>Open smarter</span><em>Ready</em></div>
+                <div class="extension-row"><span class="extension-icon">⌘</span><span>Keyboard first</span><em>3 keys</em></div>
+              </div>
+            </div>
+          </div>
           <div class="project-copy">
             <p class="problem">Tiny utilities for the annoyances that add up.</p>
             <p>A growing set of focused browser extensions: light on permissions, quick to understand, and built around a single job done well.</p>
             <p><strong>Outcome:</strong> practical tools ready to evolve from real use.</p>
             <div class="tags"><span class="tag">Chrome APIs</span><span class="tag">JavaScript</span><span class="tag">HTML / CSS</span><span class="tag">Local-first</span></div>
           </div>
-          <a class="project-link" href="https://github.com/q04ti" target="_blank" rel="noreferrer" aria-label="Explore Chrome extension work on GitHub">↗</a>
+          <a class="project-link" data-cursor="Open" href="https://github.com/q04ti" target="_blank" rel="noreferrer" aria-label="Explore Chrome extension work on GitHub">↗</a>
         </article>
       </div>
     </section>
@@ -298,6 +379,8 @@
     const progress = document.querySelector('.progress');
     const nav = document.querySelector('.nav');
     const cursor = document.querySelector('.cursor');
+    const cursorLabel = cursor.querySelector('span');
+    const hero = document.querySelector('.hero');
     const reveals = document.querySelectorAll('.reveal');
 
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -320,6 +403,15 @@
     }, { threshold: .15 });
     reveals.forEach((item) => revealObserver.observe(item));
 
+    const navLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+      });
+    }, { rootMargin: '-42% 0px -52%', threshold: 0 });
+    document.querySelectorAll('main section[id]').forEach((section) => sectionObserver.observe(section));
+
     const manifesto = document.getElementById('manifesto-text');
     manifesto.innerHTML = manifesto.textContent.trim().split(/\s+/).map((word) => {
       const clean = word.toLowerCase().replace(/[^a-z]/g, '');
@@ -339,10 +431,26 @@
       addEventListener('pointermove', (event) => {
         cursor.style.left = `${event.clientX}px`;
         cursor.style.top = `${event.clientY}px`;
+        hero.style.setProperty('--hero-x', `${(event.clientX / innerWidth - .5) * -18}px`);
+        hero.style.setProperty('--hero-y', `${(event.clientY / innerHeight - .5) * -18}px`);
       });
       document.querySelectorAll('a, .project, .skill-list li').forEach((item) => {
-        item.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        item.addEventListener('mouseenter', () => {
+          cursorLabel.textContent = item.dataset.cursor || (item.closest('.project') ? 'View' : 'Go');
+          cursor.classList.add('hover');
+        });
         item.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+      document.querySelectorAll('.project-demo').forEach((demo) => {
+        demo.addEventListener('pointermove', (event) => {
+          const rect = demo.getBoundingClientRect();
+          demo.style.setProperty('--ry', `${((event.clientX - rect.left) / rect.width - .5) * 7}deg`);
+          demo.style.setProperty('--rx', `${((event.clientY - rect.top) / rect.height - .5) * -7}deg`);
+        });
+        demo.addEventListener('pointerleave', () => {
+          demo.style.setProperty('--ry', '0deg');
+          demo.style.setProperty('--rx', '0deg');
+        });
       });
     }
   </script>
