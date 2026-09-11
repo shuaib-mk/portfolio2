@@ -104,7 +104,9 @@
     .word.is-lit { color: var(--paper); }
     .word.accent.is-lit { color: var(--acid); }
 
-    .section { padding: clamp(6rem, 12vw, 11rem) var(--pad); border-top: 1px solid var(--line); }
+    .scrub-word { display: inline-block; opacity: .12; filter: blur(6px); transform: translateY(.55em); will-change: opacity, filter, transform; }
+
+    .section { padding: clamp(6rem, 12vw, 11rem) var(--pad); border-top: 1px solid var(--line); scroll-margin-top: 5rem; }
     .section-head { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin-bottom: clamp(4rem, 9vw, 8rem); }
     .eyebrow { color: var(--acid); }
     .section-title { margin: 0; max-width: 12ch; font-family: var(--display); font-size: clamp(3rem, 7vw, 7.2rem); line-height: .91; letter-spacing: -.06em; text-transform: uppercase; }
@@ -115,6 +117,9 @@
     .about-big { margin: 0; max-width: 19ch; font-family: var(--display); font-size: clamp(2rem, 4.2vw, 4.5rem); line-height: 1.04; letter-spacing: -.04em; }
     .about-side { color: rgba(244,242,237,.63); font-size: 1.05rem; }
     .about-side strong { display: block; margin-top: 2rem; color: var(--paper); font-weight: 500; }
+    .offscreen { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; margin-top: clamp(4rem, 8vw, 8rem); padding-top: 1.2rem; border-top: 1px solid var(--line); }
+    .offscreen span { color: var(--acid); font-size: .72rem; font-weight: 650; letter-spacing: .13em; text-transform: uppercase; }
+    .offscreen p { margin: 0; max-width: 42rem; color: rgba(244,242,237,.68); font-size: clamp(1.05rem, 1.8vw, 1.35rem); }
 
     .projects { background: var(--paper); color: var(--ink); }
     .projects .section-head { margin-bottom: 3rem; }
@@ -172,11 +177,33 @@
     .extension-icon { aspect-ratio: 1; display: grid; place-items: center; background: var(--acid); font-family: var(--display); font-size: .85rem; }
     .extension-row em { font-style: normal; color: rgba(11,11,11,.5); }
 
+    .project-archive { margin-top: clamp(5rem, 9vw, 9rem); scroll-margin-top: 5rem; }
+    .archive-head { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: end; margin-bottom: 2rem; }
+    .archive-kicker { color: #647700; font-size: .72rem; font-weight: 650; letter-spacing: .13em; text-transform: uppercase; }
+    .archive-head h3 { margin: 0; max-width: 16ch; font-family: var(--display); font-size: clamp(2.4rem, 5.2vw, 5.4rem); line-height: .92; letter-spacing: -.055em; text-transform: uppercase; }
+    .archive-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--ink); border: 1px solid var(--ink); gap: 1px; }
+    .archive-card { --spot-x: 50%; --spot-y: 50%; position: relative; min-height: 30rem; display: flex; flex-direction: column; padding: clamp(1.5rem, 3vw, 2.5rem); background: #111; color: var(--paper); overflow: hidden; isolation: isolate; }
+    .archive-card::before { content: ""; position: absolute; z-index: -1; inset: 0; background: radial-gradient(circle 15rem at var(--spot-x) var(--spot-y), rgba(217,255,67,.24), transparent 72%); opacity: 0; transition: opacity .3s; }
+    .archive-card:hover::before, .archive-card:focus-within::before { opacity: 1; }
+    .archive-meta { display: flex; justify-content: space-between; gap: 1rem; color: rgba(244,242,237,.52); font-size: .68rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
+    .archive-card h4 { margin: auto 0 1.2rem; font-family: var(--display); font-size: clamp(2.5rem, 4.1vw, 4.2rem); line-height: .88; letter-spacing: -.055em; text-transform: uppercase; }
+    .archive-card p { margin: 0 0 1.5rem; color: rgba(244,242,237,.66); }
+    .archive-card p strong { color: var(--paper); }
+    .archive-card .tag { border-color: rgba(244,242,237,.28); }
+    .archive-card .tags { margin-top: 0; margin-bottom: 2rem; }
+    .archive-link { align-self: flex-start; display: inline-flex; gap: .7rem; align-items: center; padding-bottom: .3rem; border-bottom: 1px solid var(--acid); color: var(--acid); font-size: .76rem; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; transition: gap .25s; }
+    .archive-link:hover, .archive-link:focus-visible { gap: 1rem; }
+
     .skills-stage { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; }
     .skill-list { margin: 0; padding: 0; list-style: none; }
     .skill-list li { display: flex; align-items: baseline; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); font-family: var(--display); font-size: clamp(2rem, 5.4vw, 5.6rem); line-height: 1; letter-spacing: -.045em; transition: color .2s, padding-left .3s; }
     .skill-list li:hover { color: var(--acid); padding-left: 1rem; }
     .skill-list small { min-width: 2rem; font-family: var(--body); font-size: .68rem; letter-spacing: .12em; color: var(--muted); }
+    .skill-secondary { margin-top: clamp(3rem, 6vw, 5rem); }
+    .skill-kicker { display: block; margin-bottom: 1rem; color: var(--muted); font-size: .72rem; font-weight: 650; letter-spacing: .13em; text-transform: uppercase; }
+    .skill-cloud { display: flex; flex-wrap: wrap; gap: .65rem; }
+    .skill-chip { padding: .75rem 1rem; border: 1px solid var(--line); border-radius: 100px; color: rgba(244,242,237,.78); transition: background .2s, color .2s, transform .2s; }
+    .skill-chip:hover { background: var(--acid); color: var(--ink); transform: translateY(-3px); }
 
     .contact { position: relative; min-height: 92svh; display: grid; align-content: space-between; background: var(--acid); color: var(--ink); overflow: hidden; }
     .contact::after { content: "Q"; position: absolute; right: -4vw; bottom: -20vw; font-family: var(--display); font-size: min(72vw, 65rem); font-weight: 800; line-height: .75; opacity: .055; pointer-events: none; }
@@ -191,6 +218,10 @@
     .cursor span { opacity: 0; color: var(--ink); font-size: .55rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transition: opacity .15s; }
     .cursor.hover { width: 3rem; height: 3rem; background: var(--paper); }
     .cursor.hover span { opacity: 1; }
+    .cursor::before, .cursor::after { content: ""; position: absolute; background: var(--acid); opacity: .6; }
+    .cursor::before { width: 2rem; height: 1px; }
+    .cursor::after { width: 1px; height: 2rem; }
+    .cursor.hover::before, .cursor.hover::after { opacity: 0; }
 
     @keyframes rise { to { transform: none; } }
     @keyframes breathe { 50% { transform: scale(1.08); opacity: .75; } }
@@ -209,7 +240,7 @@
       .hero { padding-top: 7rem; }
       .hero::before { width: 24rem; height: 24rem; }
       .hero-title { font-size: clamp(4rem, 23vw, 7rem); }
-      .hero-bottom, .section-head, .about-grid, .skills-stage { grid-template-columns: 1fr; }
+      .hero-bottom, .section-head, .about-grid, .skills-stage, .archive-head, .offscreen { grid-template-columns: 1fr; }
       .scroll-cue { display: none; }
       .manifesto { min-height: 145svh; }
       .manifesto-inner { top: 20vh; }
@@ -217,13 +248,22 @@
       .project-demo, .project-copy { grid-column: 2 / -1; }
       .project-demo { min-height: 20rem; margin: 1rem 0; }
       .project-link { width: 2.8rem; height: 2.8rem; }
+      .archive-grid { grid-template-columns: 1fr; }
+      .archive-card { min-height: 23rem; }
+      .archive-card::before { display: none; }
       .footer { align-items: start; flex-direction: column; }
       .cursor { display: none; }
+    }
+    @media (hover: none) {
+      .project::before { display: none; }
+      .project-demo { transform: none; }
+      .skill-list li:hover { padding-left: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
       .reveal { opacity: 1; transform: none; }
+      .scrub-word { opacity: 1 !important; filter: none !important; transform: none !important; }
     }
   </style>
 </head>
@@ -239,6 +279,7 @@
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
+      <a href="https://q04ti.dev/resume.pdf" target="_blank" rel="noreferrer">Résumé</a>
       <a class="nav-cta" href="#contact">Let's talk</a>
     </nav>
   </header>
@@ -272,9 +313,9 @@
     </section>
 
     <section class="section" id="about">
-      <div class="section-head reveal">
-        <span class="eyebrow">01 / About</span>
-        <h2 class="section-title">Curious by default. Particular about details.</h2>
+      <div class="section-head">
+        <span class="eyebrow reveal">01 / About</span>
+        <h2 class="section-title scrub-text">Curious by default. Particular about details.</h2>
       </div>
       <div class="about-grid">
         <p class="about-big reveal">I like the moment when a rough idea becomes something you can hold, tap, break, and make better.</p>
@@ -283,12 +324,16 @@
           <strong>Currently focused on Flutter apps, mobile games, and lightweight browser utilities.</strong>
         </div>
       </div>
+      <div class="offscreen reveal">
+        <span>Away from code</span>
+        <p>Building redstone logic, speedrunning algorithms, mining for new tech stacks, and home weightlifting.</p>
+      </div>
     </section>
 
     <section class="section projects" id="projects">
-      <div class="section-head reveal">
-        <span class="eyebrow">02 / Selected work</span>
-        <h2 class="section-title">Built to be used. Made to be remembered.</h2>
+      <div class="section-head">
+        <span class="eyebrow reveal">02 / Selected work</span>
+        <h2 class="section-title scrub-text">Built to be used. Made to be remembered.</h2>
       </div>
       <div class="project-list">
         <article class="project reveal">
@@ -338,13 +383,42 @@
           <a class="project-link" data-cursor="Open" href="https://github.com/q04ti" target="_blank" rel="noreferrer" aria-label="Explore Chrome extension work on GitHub">↗</a>
         </article>
       </div>
+      <div class="project-archive" id="web-work">
+        <div class="archive-head">
+          <span class="archive-kicker reveal">03—05 / Web work</span>
+          <h3 class="scrub-text">More things forged, shipped, and learning in public.</h3>
+        </div>
+        <div class="archive-grid">
+          <article class="archive-card reveal">
+            <div class="archive-meta"><span>03 / AI product</span><span>Live</span></div>
+            <h4>Nexus AI</h4>
+            <p><strong>The problem:</strong> useful AI conversations lose value when they forget context. I built a real-time assistant around contextual reasoning and custom knowledge retrieval.</p>
+            <div class="tags"><span class="tag">AI</span><span class="tag">Real time</span><span class="tag">Knowledge retrieval</span></div>
+            <a class="archive-link" data-cursor="Visit" href="https://sunniai.vercel.app/" target="_blank" rel="noreferrer" aria-label="Visit Nexus AI">Visit live <span>↗</span></a>
+          </article>
+          <article class="archive-card reveal">
+            <div class="archive-meta"><span>04 / Dev tools</span><span>Live</span></div>
+            <h4>ForgeFlow</h4>
+            <p><strong>The problem:</strong> long-running development tasks are hard to trust when progress is invisible. I built a workflow dashboard with durable execution and real-time logs.</p>
+            <div class="tags"><span class="tag">Workflows</span><span class="tag">Dashboards</span><span class="tag">Live logs</span></div>
+            <a class="archive-link" data-cursor="Visit" href="https://forge-flow.up.railway.app/" target="_blank" rel="noreferrer" aria-label="Visit ForgeFlow">Visit live <span>↗</span></a>
+          </article>
+          <article class="archive-card reveal">
+            <div class="archive-meta"><span>05 / Commerce</span><span>Live</span></div>
+            <h4>Loop &amp; Bloom</h4>
+            <p><strong>The problem:</strong> handmade products deserve more warmth than a generic catalog. I built an artisanal storefront with product discovery and custom-order flows.</p>
+            <div class="tags"><span class="tag">Storefront</span><span class="tag">Catalog</span><span class="tag">Custom orders</span></div>
+            <a class="archive-link" data-cursor="Visit" href="https://handmadebloom.vercel.app/" target="_blank" rel="noreferrer" aria-label="Visit Loop and Bloom">Visit live <span>↗</span></a>
+          </article>
+        </div>
+      </div>
     </section>
 
     <section class="section" id="skills">
       <div class="skills-stage">
         <div class="reveal"><span class="eyebrow">03 / Toolkit</span></div>
         <div>
-          <h2 class="section-title reveal">Tools change. Making things work doesn't.</h2>
+          <h2 class="section-title scrub-text">Tools change. Making things work doesn't.</h2>
           <ol class="skill-list reveal" aria-label="Core skills">
             <li><small>01</small> Flutter / Dart</li>
             <li><small>02</small> Android / Kotlin</li>
@@ -352,6 +426,12 @@
             <li><small>04</small> Python</li>
             <li><small>05</small> C</li>
           </ol>
+          <div class="skill-secondary reveal">
+            <span class="skill-kicker">Web &amp; systems experience</span>
+            <div class="skill-cloud" aria-label="Additional skills">
+              <span class="skill-chip">React</span><span class="skill-chip">TypeScript</span><span class="skill-chip">Node.js</span><span class="skill-chip">C++</span><span class="skill-chip">Rust</span><span class="skill-chip">Go</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -359,11 +439,12 @@
     <section class="section contact" id="contact">
       <div>
         <span class="eyebrow">04 / Contact</span>
-        <h2 class="contact-title reveal">Have an idea worth tapping?</h2>
+        <h2 class="contact-title scrub-text">Have an idea worth tapping?</h2>
         <div class="contact-links reveal">
           <a class="contact-link" href="mailto:q04tiofficial@gmail.com">Email <span>↗</span></a>
           <a class="contact-link" href="https://github.com/q04ti" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
           <a class="contact-link" href="https://www.linkedin.com/in/q04ti" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
+          <a class="contact-link" href="https://q04ti.dev/resume.pdf" target="_blank" rel="noreferrer">Résumé <span>↓</span></a>
         </div>
       </div>
       <footer class="footer">
@@ -393,15 +474,14 @@
     addEventListener('scroll', updateScroll, { passive: true });
     updateScroll();
 
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: .15 });
-    reveals.forEach((item) => revealObserver.observe(item));
+    if (reduceMotion) {
+      reveals.forEach((item) => item.classList.add('visible'));
+    } else {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => entry.target.classList.toggle('visible', entry.isIntersecting));
+      }, { threshold: .08, rootMargin: '-4% 0px -4%' });
+      reveals.forEach((item) => revealObserver.observe(item));
+    }
 
     const navLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
     const sectionObserver = new IntersectionObserver((entries) => {
@@ -427,6 +507,37 @@
     addEventListener('scroll', lightWords, { passive: true });
     lightWords();
 
+    const scrubBlocks = [...document.querySelectorAll('.scrub-text')];
+    scrubBlocks.forEach((block) => {
+      const label = block.textContent.trim();
+      block.setAttribute('aria-label', label);
+      block.innerHTML = label.split(/\s+/).map((word) => `<span class="scrub-word" aria-hidden="true">${word}</span>`).join(' ');
+    });
+    const updateScrubText = () => {
+      scrubBlocks.forEach((block) => {
+        const rect = block.getBoundingClientRect();
+        const blockProgress = Math.max(0, Math.min(1, (innerHeight * .88 - rect.top) / (innerHeight * .58)));
+        const blockWords = [...block.querySelectorAll('.scrub-word')];
+        blockWords.forEach((word, index) => {
+          const local = Math.max(0, Math.min(1, blockProgress * 1.45 - index / Math.max(blockWords.length, 1) * .45));
+          word.style.opacity = reduceMotion ? 1 : .12 + local * .88;
+          word.style.transform = reduceMotion ? 'none' : `translateY(${(1 - local) * .55}em)`;
+          word.style.filter = reduceMotion ? 'none' : `blur(${(1 - local) * 6}px)`;
+        });
+      });
+    };
+    addEventListener('scroll', updateScrubText, { passive: true });
+    addEventListener('resize', updateScrubText);
+    updateScrubText();
+
+    document.querySelectorAll('.archive-card').forEach((card) => {
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
+        card.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
+      });
+    });
+
     if (!reduceMotion && matchMedia('(pointer: fine)').matches) {
       addEventListener('pointermove', (event) => {
         cursor.style.left = `${event.clientX}px`;
@@ -434,9 +545,9 @@
         hero.style.setProperty('--hero-x', `${(event.clientX / innerWidth - .5) * -18}px`);
         hero.style.setProperty('--hero-y', `${(event.clientY / innerHeight - .5) * -18}px`);
       });
-      document.querySelectorAll('a, .project, .skill-list li').forEach((item) => {
+      document.querySelectorAll('a, .project, .archive-card, .skill-list li, .skill-chip').forEach((item) => {
         item.addEventListener('mouseenter', () => {
-          cursorLabel.textContent = item.dataset.cursor || (item.closest('.project') ? 'View' : 'Go');
+          cursorLabel.textContent = item.dataset.cursor || (item.closest('.project, .archive-card') ? 'View' : 'Go');
           cursor.classList.add('hover');
         });
         item.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
