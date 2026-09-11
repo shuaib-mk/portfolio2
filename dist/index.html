@@ -100,7 +100,8 @@
     .manifesto { min-height: 185svh; padding: 15vh var(--pad); }
     .manifesto-inner { position: sticky; top: 18vh; }
     .manifesto p { margin: 0; max-width: 13ch; font-family: var(--display); font-size: clamp(3.2rem, 8.8vw, 9rem); line-height: .9; letter-spacing: -.065em; text-transform: uppercase; }
-    .word { color: rgba(244,242,237,.14); transition: color .35s; }
+    .word { display: inline-block; margin-inline-end: .16em; color: rgba(244,242,237,.14); transition: color .35s; }
+    .word:last-child { margin-inline-end: 0; }
     .word.is-lit { color: var(--paper); }
     .word.accent.is-lit { color: var(--acid); }
 
@@ -308,7 +309,7 @@
       </div>
     </div>
 
-    <section class="manifesto" aria-label="Design statement">
+    <section class="manifesto" id="story" aria-label="Design statement">
       <div class="manifesto-inner"><p id="manifesto-text">I build <span class="accent">small</span> software with <span class="accent">big</span> personality. Every tap should earn its place.</p></div>
     </section>
 
@@ -493,10 +494,12 @@
     document.querySelectorAll('main section[id]').forEach((section) => sectionObserver.observe(section));
 
     const manifesto = document.getElementById('manifesto-text');
-    manifesto.innerHTML = manifesto.textContent.trim().split(/\s+/).map((word) => {
+    const manifestoCopy = manifesto.textContent.trim();
+    manifesto.setAttribute('aria-label', manifestoCopy);
+    manifesto.innerHTML = manifestoCopy.split(/\s+/).map((word) => {
       const clean = word.toLowerCase().replace(/[^a-z]/g, '');
-      return `<span class="word ${clean === 'small' || clean === 'big' ? 'accent' : ''}">${word}</span>`;
-    }).join(' ');
+      return `<span class="word ${clean === 'small' || clean === 'big' ? 'accent' : ''}" aria-hidden="true">${word}</span>`;
+    }).join('');
     const words = [...manifesto.querySelectorAll('.word')];
     const lightWords = () => {
       const rect = manifesto.getBoundingClientRect();
