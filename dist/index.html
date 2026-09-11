@@ -122,7 +122,7 @@
     .offscreen span { color: var(--acid); font-size: .72rem; font-weight: 650; letter-spacing: .13em; text-transform: uppercase; }
     .offscreen p { margin: 0; max-width: 42rem; color: rgba(244,242,237,.68); font-size: clamp(1.05rem, 1.8vw, 1.35rem); }
 
-    .projects { background: var(--paper); color: var(--ink); }
+    .projects { background: var(--paper); color: var(--ink); overflow: hidden; }
     .projects .section-head { margin-bottom: 3rem; }
     .projects .eyebrow { color: #647700; }
     .project-list { border-top: 1px solid rgba(11,11,11,.25); }
@@ -178,22 +178,60 @@
     .extension-icon { aspect-ratio: 1; display: grid; place-items: center; background: var(--acid); font-family: var(--display); font-size: .85rem; }
     .extension-row em { font-style: normal; color: rgba(11,11,11,.5); }
 
-    .project-archive { margin-top: clamp(5rem, 9vw, 9rem); scroll-margin-top: 5rem; }
-    .archive-head { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: end; margin-bottom: 2rem; }
-    .archive-kicker { color: #647700; font-size: .72rem; font-weight: 650; letter-spacing: .13em; text-transform: uppercase; }
-    .archive-head h3 { margin: 0; max-width: 16ch; font-family: var(--display); font-size: clamp(2.4rem, 5.2vw, 5.4rem); line-height: .92; letter-spacing: -.055em; text-transform: uppercase; }
-    .archive-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--ink); border: 1px solid var(--ink); gap: 1px; }
-    .archive-card { --spot-x: 50%; --spot-y: 50%; position: relative; min-height: 30rem; display: flex; flex-direction: column; padding: clamp(1.5rem, 3vw, 2.5rem); background: #111; color: var(--paper); overflow: hidden; isolation: isolate; }
-    .archive-card::before { content: ""; position: absolute; z-index: -1; inset: 0; background: radial-gradient(circle 15rem at var(--spot-x) var(--spot-y), rgba(217,255,67,.24), transparent 72%); opacity: 0; transition: opacity .3s; }
-    .archive-card:hover::before, .archive-card:focus-within::before { opacity: 1; }
-    .archive-meta { display: flex; justify-content: space-between; gap: 1rem; color: rgba(244,242,237,.52); font-size: .68rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; }
-    .archive-card h4 { margin: auto 0 1.2rem; font-family: var(--display); font-size: clamp(2.5rem, 4.1vw, 4.2rem); line-height: .88; letter-spacing: -.055em; text-transform: uppercase; }
-    .archive-card p { margin: 0 0 1.5rem; color: rgba(244,242,237,.66); }
-    .archive-card p strong { color: var(--paper); }
-    .archive-card .tag { border-color: rgba(244,242,237,.28); }
-    .archive-card .tags { margin-top: 0; margin-bottom: 2rem; }
-    .archive-link { align-self: flex-start; display: inline-flex; gap: .7rem; align-items: center; padding-bottom: .3rem; border-bottom: 1px solid var(--acid); color: var(--acid); font-size: .76rem; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; transition: gap .25s; }
-    .archive-link:hover, .archive-link:focus-visible { gap: 1rem; }
+    .ai-console, .flow-board, .shop-window { width: min(22rem, 90%); border: 2px solid var(--ink); box-shadow: 1.35rem 1.35rem 0 rgba(11,11,11,.11); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+
+    .ai-console { padding: 1rem; background: var(--ink); color: var(--paper); transform: rotate(-3deg); }
+    .project:hover .ai-console { transform: rotate(-1deg) scale(1.035); }
+    .ai-bar { display: flex; align-items: center; justify-content: space-between; padding-bottom: .75rem; border-bottom: 1px solid rgba(244,242,237,.22); font-size: .56rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .ai-live { display: flex; align-items: center; gap: .4rem; color: var(--acid); }
+    .ai-live::before { content: ""; width: .42rem; height: .42rem; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 .2rem rgba(217,255,67,.14); }
+    .ai-thread { display: grid; gap: .75rem; padding-top: 1rem; }
+    .ai-prompt, .ai-response { padding: .8rem; border: 1px solid rgba(244,242,237,.24); font-size: .68rem; line-height: 1.45; }
+    .ai-prompt { width: 78%; margin-left: auto; background: rgba(244,242,237,.08); }
+    .ai-response { position: relative; padding-left: 2.1rem; color: rgba(244,242,237,.78); }
+    .ai-response::before { content: "Q"; position: absolute; left: .75rem; top: .72rem; display: grid; place-items: center; width: .9rem; height: .9rem; background: var(--acid); color: var(--ink); font-family: var(--display); font-weight: 800; }
+    .ai-response strong { display: block; margin-bottom: .25rem; color: var(--paper); }
+    .ai-context { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .ai-context span { padding: .34rem .46rem; border: 1px solid rgba(217,255,67,.48); color: var(--acid); font-size: .5rem; letter-spacing: .09em; text-transform: uppercase; }
+    .ai-thinking { display: flex; gap: .22rem; align-items: center; color: rgba(244,242,237,.45); font-size: .52rem; text-transform: uppercase; letter-spacing: .1em; }
+    .ai-thinking i { width: .32rem; height: .32rem; border-radius: 50%; background: var(--acid); animation: think 1.15s ease-in-out infinite; }
+    .ai-thinking i:nth-child(2) { animation-delay: .14s; }
+    .ai-thinking i:nth-child(3) { animation-delay: .28s; }
+
+    .flow-board { background: var(--paper); transform: rotate(2.5deg); }
+    .project:hover .flow-board { transform: rotate(.5deg) scale(1.035); }
+    .flow-bar { display: flex; align-items: center; justify-content: space-between; height: 2rem; padding: 0 .7rem; border-bottom: 1px solid var(--ink); font-size: .55rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .flow-status { display: flex; align-items: center; gap: .4rem; }
+    .flow-status::before { content: ""; width: .42rem; height: .42rem; border-radius: 50%; background: var(--acid); border: 1px solid var(--ink); }
+    .flow-canvas { position: relative; min-height: 9rem; background-image: linear-gradient(rgba(11,11,11,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(11,11,11,.08) 1px, transparent 1px); background-size: 1.2rem 1.2rem; overflow: hidden; }
+    .flow-line { position: absolute; height: 1px; background: var(--ink); transform-origin: left; }
+    .flow-line.one { width: 5rem; left: 4.8rem; top: 3.1rem; transform: rotate(12deg); }
+    .flow-line.two { width: 5rem; left: 11rem; top: 4.2rem; transform: rotate(-16deg); }
+    .flow-node { position: absolute; display: grid; gap: .15rem; width: 5.1rem; padding: .5rem; border: 1px solid var(--ink); background: var(--paper); font-size: .48rem; letter-spacing: .06em; text-transform: uppercase; }
+    .flow-node strong { font-size: .6rem; }
+    .flow-node small { color: rgba(11,11,11,.55); }
+    .flow-node.start { left: 1rem; top: 1.5rem; }
+    .flow-node.build { left: 8.1rem; top: 3rem; background: var(--acid); }
+    .flow-node.ship { right: 1rem; top: 1.2rem; }
+    .flow-log { padding: .75rem; background: var(--ink); color: rgba(244,242,237,.65); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .52rem; line-height: 1.7; }
+    .flow-log span { display: block; }
+    .flow-log b { color: var(--acid); font-weight: 500; }
+
+    .shop-window { background: var(--paper); transform: rotate(-2.5deg); }
+    .project:hover .shop-window { transform: rotate(-.5deg) scale(1.035); }
+    .shop-bar { display: flex; align-items: center; justify-content: space-between; height: 2.1rem; padding: 0 .75rem; border-bottom: 1px solid var(--ink); font-family: var(--display); font-size: .66rem; font-weight: 750; letter-spacing: -.02em; text-transform: uppercase; }
+    .shop-cart { display: grid; place-items: center; min-width: 1.2rem; height: 1.2rem; padding: 0 .25rem; border-radius: 100px; background: var(--acid); font-family: var(--body); font-size: .5rem; }
+    .shop-hero { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 6.5rem; border-bottom: 1px solid var(--ink); }
+    .shop-message { display: grid; align-content: end; padding: .75rem; background: var(--acid); font-family: var(--display); font-size: 1.35rem; font-weight: 750; line-height: .86; letter-spacing: -.05em; text-transform: uppercase; }
+    .shop-note { display: grid; place-items: center; padding: .75rem; text-align: center; font-size: .56rem; line-height: 1.45; }
+    .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .shop-item { padding: .6rem; border-right: 1px solid rgba(11,11,11,.24); }
+    .shop-item:last-child { border-right: 0; }
+    .shop-swatch { display: block; aspect-ratio: 1.25; margin-bottom: .45rem; border: 1px solid rgba(11,11,11,.2); background: repeating-linear-gradient(135deg, #dedbd2 0 .45rem, #f4f2ed .45rem .9rem); }
+    .shop-item:nth-child(2) .shop-swatch { background: radial-gradient(circle at 35% 35%, var(--acid) 0 18%, transparent 19%), #191919; }
+    .shop-item:nth-child(3) .shop-swatch { background: linear-gradient(135deg, var(--acid) 0 48%, var(--paper) 49%); }
+    .shop-item strong, .shop-item small { display: block; font-size: .5rem; }
+    .shop-item small { margin-top: .18rem; color: rgba(11,11,11,.5); }
 
     .skills-stage { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; }
     .skill-list { margin: 0; padding: 0; list-style: none; }
@@ -227,6 +265,7 @@
     @keyframes rise { to { transform: none; } }
     @keyframes breathe { 50% { transform: scale(1.08); opacity: .75; } }
     @keyframes ticker { to { transform: translateX(-50%); } }
+    @keyframes think { 50% { opacity: .25; transform: translateY(-.15rem); } }
 
     @media (max-width: 1100px) and (min-width: 761px) {
       .project { grid-template-columns: 3rem .8fr 1fr auto; }
@@ -241,16 +280,17 @@
       .hero { padding-top: 7rem; }
       .hero::before { width: 24rem; height: 24rem; }
       .hero-title { font-size: clamp(4rem, 23vw, 7rem); }
-      .hero-bottom, .section-head, .about-grid, .skills-stage, .archive-head, .offscreen { grid-template-columns: 1fr; }
+      .hero-bottom, .section-head, .about-grid, .skills-stage, .offscreen { grid-template-columns: 1fr; }
       .scroll-cue { display: none; }
       .manifesto { padding-top: 7rem; padding-bottom: 7rem; }
-      .project { grid-template-columns: 2.2rem 1fr auto; gap: .8rem; }
+      .project { grid-template-columns: 2.2rem minmax(0, 1fr) auto; gap: .8rem; }
       .project-demo, .project-copy { grid-column: 2 / -1; }
       .project-demo { min-height: 20rem; margin: 1rem 0; }
+      .project h3 { min-width: 0; font-size: clamp(2.5rem, 13vw, 4.25rem); line-height: .88; overflow-wrap: anywhere; }
+      .ai-console, .flow-board, .shop-window { width: min(20rem, 92%); box-shadow: .8rem .8rem 0 rgba(11,11,11,.1); }
+      .flow-node.build { left: 42%; }
+      .flow-node.ship { right: .7rem; }
       .project-link { width: 2.8rem; height: 2.8rem; }
-      .archive-grid { grid-template-columns: 1fr; }
-      .archive-card { min-height: 23rem; }
-      .archive-card::before { display: none; }
       .footer { align-items: start; flex-direction: column; }
       .cursor { display: none; }
     }
@@ -382,35 +422,73 @@
           </div>
           <a class="project-link" data-cursor="Open" href="https://github.com/q04ti" target="_blank" rel="noreferrer" aria-label="Explore Chrome extension work on GitHub">↗</a>
         </article>
-      </div>
-      <div class="project-archive" id="web-work">
-        <div class="archive-head">
-          <span class="archive-kicker reveal">03—05 / Web work</span>
-          <h3 class="scrub-text">More things forged, shipped, and learning in public.</h3>
-        </div>
-        <div class="archive-grid">
-          <article class="archive-card reveal">
-            <div class="archive-meta"><span>03 / AI product</span><span>Live</span></div>
-            <h4>Nexus AI</h4>
-            <p><strong>The problem:</strong> useful AI conversations lose value when they forget context. I built a real-time assistant around contextual reasoning and custom knowledge retrieval.</p>
+        <article class="project reveal">
+          <span class="project-index">03</span>
+          <h3>Nexus AI</h3>
+          <div class="project-demo" aria-hidden="true">
+            <div class="ai-console">
+              <div class="ai-bar"><span>Nexus / Context engine</span><span class="ai-live">Live</span></div>
+              <div class="ai-thread">
+                <div class="ai-prompt">What changed since our last conversation?</div>
+                <div class="ai-response"><strong>I kept the useful context.</strong>Here is the decision, the reason behind it, and what still needs your attention.</div>
+                <div class="ai-context"><span>Memory 04</span><span>Docs 12</span><span>Context 92%</span></div>
+                <div class="ai-thinking"><span>Reasoning</span><i></i><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="project-copy">
+            <p class="problem">AI that remembers why the conversation matters.</p>
+            <p>Useful AI conversations lose value when context disappears. I built a real-time assistant around contextual reasoning and custom knowledge retrieval.</p>
+            <p><strong>Status:</strong> live and evolving.</p>
             <div class="tags"><span class="tag">AI</span><span class="tag">Real time</span><span class="tag">Knowledge retrieval</span></div>
-            <a class="archive-link" data-cursor="Visit" href="https://sunniai.vercel.app/" target="_blank" rel="noreferrer" aria-label="Visit Nexus AI">Visit live <span>↗</span></a>
-          </article>
-          <article class="archive-card reveal">
-            <div class="archive-meta"><span>04 / Dev tools</span><span>Live</span></div>
-            <h4>ForgeFlow</h4>
-            <p><strong>The problem:</strong> long-running development tasks are hard to trust when progress is invisible. I built a workflow dashboard with durable execution and real-time logs.</p>
+          </div>
+          <a class="project-link" data-cursor="Visit" href="https://sunniai.vercel.app/" target="_blank" rel="noreferrer" aria-label="Visit Nexus AI">↗</a>
+        </article>
+        <article class="project reveal">
+          <span class="project-index">04</span>
+          <h3>ForgeFlow</h3>
+          <div class="project-demo" aria-hidden="true">
+            <div class="flow-board">
+              <div class="flow-bar"><span>ForgeFlow / Run 024</span><span class="flow-status">Running</span></div>
+              <div class="flow-canvas">
+                <span class="flow-line one"></span><span class="flow-line two"></span>
+                <div class="flow-node start"><strong>Plan</strong><small>Complete</small></div>
+                <div class="flow-node build"><strong>Build</strong><small>In progress</small></div>
+                <div class="flow-node ship"><strong>Ship</strong><small>Queued</small></div>
+              </div>
+              <div class="flow-log"><span><b>10:42:08</b> workflow started</span><span><b>10:42:11</b> build output streaming...</span><span><b>10:42:14</b> 18 tasks durable</span></div>
+            </div>
+          </div>
+          <div class="project-copy">
+            <p class="problem">See the work while the work is happening.</p>
+            <p>Long-running development tasks are hard to trust when progress is invisible. I built a workflow dashboard with durable execution and real-time logs.</p>
+            <p><strong>Outcome:</strong> clearer progress, fewer mystery failures.</p>
             <div class="tags"><span class="tag">Workflows</span><span class="tag">Dashboards</span><span class="tag">Live logs</span></div>
-            <a class="archive-link" data-cursor="Visit" href="https://forge-flow.up.railway.app/" target="_blank" rel="noreferrer" aria-label="Visit ForgeFlow">Visit live <span>↗</span></a>
-          </article>
-          <article class="archive-card reveal">
-            <div class="archive-meta"><span>05 / Commerce</span><span>Live</span></div>
-            <h4>Loop &amp; Bloom</h4>
-            <p><strong>The problem:</strong> handmade products deserve more warmth than a generic catalog. I built an artisanal storefront with product discovery and custom-order flows.</p>
+          </div>
+          <a class="project-link" data-cursor="Visit" href="https://forge-flow.up.railway.app/" target="_blank" rel="noreferrer" aria-label="Visit ForgeFlow">↗</a>
+        </article>
+        <article class="project reveal">
+          <span class="project-index">05</span>
+          <h3>Loop &amp; Bloom</h3>
+          <div class="project-demo" aria-hidden="true">
+            <div class="shop-window">
+              <div class="shop-bar"><span>Loop &amp; Bloom</span><span class="shop-cart">02</span></div>
+              <div class="shop-hero"><div class="shop-message">Made slowly.<br>Loved longer.</div><div class="shop-note">Handmade pieces and custom orders, collected in one warm storefront.</div></div>
+              <div class="shop-grid">
+                <div class="shop-item"><span class="shop-swatch"></span><strong>Soft forms</strong><small>Explore</small></div>
+                <div class="shop-item"><span class="shop-swatch"></span><strong>New drop</strong><small>03 pieces</small></div>
+                <div class="shop-item"><span class="shop-swatch"></span><strong>Your idea</strong><small>Custom</small></div>
+              </div>
+            </div>
+          </div>
+          <div class="project-copy">
+            <p class="problem">A warmer home for work made by hand.</p>
+            <p>Handmade products deserve more warmth than a generic catalog. I built an artisanal storefront with product discovery and custom-order flows.</p>
+            <p><strong>Status:</strong> live and taking custom orders.</p>
             <div class="tags"><span class="tag">Storefront</span><span class="tag">Catalog</span><span class="tag">Custom orders</span></div>
-            <a class="archive-link" data-cursor="Visit" href="https://handmadebloom.vercel.app/" target="_blank" rel="noreferrer" aria-label="Visit Loop and Bloom">Visit live <span>↗</span></a>
-          </article>
-        </div>
+          </div>
+          <a class="project-link" data-cursor="Visit" href="https://handmadebloom.vercel.app/" target="_blank" rel="noreferrer" aria-label="Visit Loop and Bloom">↗</a>
+        </article>
       </div>
     </section>
 
@@ -532,14 +610,6 @@
     addEventListener('resize', updateScrubText);
     updateScrubText();
 
-    document.querySelectorAll('.archive-card').forEach((card) => {
-      card.addEventListener('pointermove', (event) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
-        card.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
-      });
-    });
-
     if (!reduceMotion && matchMedia('(pointer: fine)').matches) {
       addEventListener('pointermove', (event) => {
         cursor.style.left = `${event.clientX}px`;
@@ -547,9 +617,9 @@
         hero.style.setProperty('--hero-x', `${(event.clientX / innerWidth - .5) * -18}px`);
         hero.style.setProperty('--hero-y', `${(event.clientY / innerHeight - .5) * -18}px`);
       });
-      document.querySelectorAll('a, .project, .archive-card, .skill-list li, .skill-chip').forEach((item) => {
+      document.querySelectorAll('a, .project, .skill-list li, .skill-chip').forEach((item) => {
         item.addEventListener('mouseenter', () => {
-          cursorLabel.textContent = item.dataset.cursor || (item.closest('.project, .archive-card') ? 'View' : 'Go');
+          cursorLabel.textContent = item.dataset.cursor || (item.closest('.project') ? 'View' : 'Go');
           cursor.classList.add('hover');
         });
         item.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
