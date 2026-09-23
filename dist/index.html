@@ -178,7 +178,7 @@
     .extension-icon { aspect-ratio: 1; display: grid; place-items: center; background: var(--acid); font-family: var(--display); font-size: .85rem; }
     .extension-row em { font-style: normal; color: rgba(11,11,11,.5); }
 
-    .ai-console, .flow-board, .shop-window { width: min(22rem, 90%); border: 2px solid var(--ink); box-shadow: 1.35rem 1.35rem 0 rgba(11,11,11,.11); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+    .ai-console, .flow-board, .shop-window, .therapy-window { width: min(22rem, 90%); border: 2px solid var(--ink); box-shadow: 1.35rem 1.35rem 0 rgba(11,11,11,.11); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
 
     .ai-console { padding: 1rem; background: var(--ink); color: var(--paper); transform: rotate(-3deg); }
     .project:hover .ai-console { transform: rotate(-1deg) scale(1.035); }
@@ -232,6 +232,19 @@
     .shop-item:nth-child(3) .shop-swatch { background: linear-gradient(135deg, var(--acid) 0 48%, var(--paper) 49%); }
     .shop-item strong, .shop-item small { display: block; font-size: .5rem; }
     .shop-item small { margin-top: .18rem; color: rgba(11,11,11,.5); }
+
+    .therapy-window { background: var(--paper); transform: rotate(2deg); overflow: hidden; }
+    .project:hover .therapy-window { transform: rotate(.5deg) scale(1.035); }
+    .therapy-bar { display: flex; align-items: center; justify-content: space-between; height: 2.1rem; padding: 0 .75rem; border-bottom: 1px solid var(--ink); font-family: var(--display); font-size: .66rem; font-weight: 750; letter-spacing: -.02em; text-transform: uppercase; background: #e8f0f2; }
+    .therapy-badge { display: grid; place-items: center; padding: .15rem .5rem; border-radius: 100px; background: var(--ink); color: var(--acid); font-family: var(--body); font-size: .5rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .therapy-hero { position: relative; min-height: 8rem; border-bottom: 1px solid var(--ink); background-image: linear-gradient(to bottom, rgba(11,11,11,0.25), rgba(11,11,11,0.75)), url('maya-reynolds.jpg'); background-size: cover; background-position: center; display: flex; flex-direction: column; justify-content: flex-end; padding: .85rem; color: #ffffff; }
+    .therapy-headline { font-family: var(--display); font-size: 1.25rem; font-weight: 750; line-height: .9; letter-spacing: -.04em; text-transform: uppercase; color: #f4f2ed; }
+    .therapy-sub { font-size: .52rem; letter-spacing: .06em; text-transform: uppercase; color: var(--acid); margin-top: .25rem; font-weight: 600; }
+    .therapy-grid { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--paper); }
+    .therapy-item { padding: .6rem .4rem; border-right: 1px solid rgba(11,11,11,.24); text-align: center; }
+    .therapy-item:last-child { border-right: 0; }
+    .therapy-item strong { display: block; font-size: .5rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--ink); }
+    .therapy-item small { display: block; margin-top: .15rem; font-size: .46rem; color: rgba(11,11,11,.6); text-transform: uppercase; }
 
     .skills-stage { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; }
     .skill-list { margin: 0; padding: 0; list-style: none; }
@@ -287,7 +300,7 @@
       .project-demo, .project-copy { grid-column: 2 / -1; }
       .project-demo { min-height: 20rem; margin: 1rem 0; }
       .project h3 { min-width: 0; font-size: clamp(2.5rem, 13vw, 4.25rem); line-height: .88; overflow-wrap: anywhere; }
-      .ai-console, .flow-board, .shop-window { width: min(20rem, 92%); box-shadow: .8rem .8rem 0 rgba(11,11,11,.1); }
+      .ai-console, .flow-board, .shop-window, .therapy-window { width: min(20rem, 92%); box-shadow: .8rem .8rem 0 rgba(11,11,11,.1); }
       .flow-node.build { left: 42%; }
       .flow-node.ship { right: .7rem; }
       .project-link { width: 2.8rem; height: 2.8rem; }
@@ -488,6 +501,31 @@
             <div class="tags"><span class="tag">Storefront</span><span class="tag">Catalog</span><span class="tag">Custom orders</span></div>
           </div>
           <a class="project-link" data-cursor="Visit" href="https://handmadebloom.vercel.app/" target="_blank" rel="noreferrer" aria-label="Visit Loop and Bloom">↗</a>
+        </article>
+        <article class="project reveal">
+          <span class="project-index">06</span>
+          <h3>Dr. Maya Reynolds Therapy</h3>
+          <div class="project-demo" aria-hidden="true">
+            <div class="therapy-window">
+              <div class="therapy-bar"><span>Dr. Maya Reynolds, PsyD</span><span class="therapy-badge">Santa Monica</span></div>
+              <div class="therapy-hero">
+                <div class="therapy-headline">Therapy for<br>High Achievers.</div>
+                <div class="therapy-sub">Santa Monica &amp; CA Telehealth</div>
+              </div>
+              <div class="therapy-grid">
+                <div class="therapy-item"><strong>Anxiety</strong><small>Panic &amp; Stress</small></div>
+                <div class="therapy-item"><strong>Trauma</strong><small>EMDR &amp; PTSD</small></div>
+                <div class="therapy-item"><strong>Burnout</strong><small>Perfectionism</small></div>
+              </div>
+            </div>
+          </div>
+          <div class="project-copy">
+            <p class="problem">Santa Monica-inspired, design-forward counseling homepage.</p>
+            <p>A responsive editorial web application built with Next.js 16, React 19, and Tailwind CSS 4. Recreates a counseling practice template with custom coastal branding, profile-based copy, and accessible multi-column layout.</p>
+            <p><strong>Status:</strong> live practice site.</p>
+            <div class="tags"><span class="tag">Next.js 16</span><span class="tag">React 19</span><span class="tag">Tailwind CSS</span><span class="tag">TypeScript</span></div>
+          </div>
+          <a class="project-link" data-cursor="Visit" href="https://project.q04ti.workers.dev/" target="_blank" rel="noreferrer" aria-label="Visit Dr. Maya Reynolds Therapy Website">↗</a>
         </article>
       </div>
     </section>
